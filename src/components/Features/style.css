@@ -1,0 +1,19 @@
+.features-container {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag {
+    background: rgba(92, 255, 109, 0.1);
+    border-radius: 100px;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: rgb(92, 255, 109);
+    margin-right: 12px;
+}
+
+.tag:hover {
+    border-color: rgb(92, 255, 109);
+}

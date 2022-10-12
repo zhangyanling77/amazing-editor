@@ -1,9 +1,31 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background: #20202a;
+}
+
 .container {
   padding: 40px 60px;
 }
 
+.github {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.github a {
+  color: #2d8cff;
+  margin-left: 8px;
+  text-decoration: none;
+}
+
 .container > h1 {
   text-align: center;
+  color: #fff;
 }
 
 .draft-editor {
@@ -11,5 +33,9 @@
   border-radius: 4px;
   min-height: 400px;
   padding: 20px;
+  cursor: text;
 }
 
+.DraftEditor-root {
+  color: #fff;
+}

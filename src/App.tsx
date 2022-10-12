@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useRef } from 'react';
+import { Editor, EditorState } from 'draft-js';
+import 'draft-js/dist/Draft.css';
 import './App.css';
 
-function App() {
+const App: React.FC = () => {
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const editorRef = useRef<Editor>(null);
+  const handleChange = (newState: EditorState) => {
+    setEditorState(newState);
+  };
+  const handleClick = () => {
+    editorRef.current?.focus();
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1>draft.js Editor</h1>
+      <div className="draft-editor" onClick={handleClick}>
+        <Editor editorState={editorState} onChange={handleChange} ref={editorRef} placeholder="Please input..." />
+      </div>
     </div>
   );
-}
+};
 
 export default App;

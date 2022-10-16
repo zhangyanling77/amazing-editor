@@ -1,6 +1,6 @@
 import { EditorState } from 'draft-js';
 
-const changeCurrentBlockType = (editorState: EditorState, type: string, text = '', blockMetadata = {}) => {
+const handleChangeBlockType = (editorState: EditorState, type: string, text = '', blockMetadata = {}) => {
   const contentState = editorState.getCurrentContent();
   const selection = editorState.getSelection();
   const key = selection.getStartKey();
@@ -19,4 +19,4 @@ const changeCurrentBlockType = (editorState: EditorState, type: string, text = '
   return EditorState.push(editorState, newContentState, 'change-block-type');
 };
 
-export default changeCurrentBlockType;
+export default handleChangeBlockType;

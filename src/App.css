@@ -26,7 +26,7 @@
   text-align: center;
 }
 
-.draft-editor {
+.amazing-editor {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 4px;
   min-height: 400px;
@@ -85,4 +85,8 @@
 
 .DraftEditor-root h6 {
   font-size: 18px;
+}
+
+.hide-placeholder .public-DraftEditorPlaceholder-root {
+  display: none;
 }

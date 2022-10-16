@@ -23,6 +23,7 @@ export const checkReturnForState = (editorState: EditorState, ev: any): EditorSt
   if (/-list-item/.test(type) && text === '') {
     newEditorState = handleLeaveList(editorState);
   }
+
   if (
     editorState === newEditorState &&
     (ev.ctrlKey ||
@@ -33,5 +34,6 @@ export const checkReturnForState = (editorState: EditorState, ev: any): EditorSt
   ) {
     newEditorState = handleInsertEmptyBlock(editorState);
   }
+
   return newEditorState;
 };

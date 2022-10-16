@@ -1,88 +1,126 @@
-import React from 'react';
+import React, { memo } from 'react';
 /**
  * 功能
  * 通过 tag 的方式展示，状态包括 “已完成” 和 “未完成”
  */
+import Tooltip from '../Tooltip';
 import './style.css';
 
 const tags = [
   {
-    name: 'h1 - h6',
-    value: 'header',
-    status: 'UNFINISHED',
+    name: 'H1',
+    value: 'header-one',
+    status: 'FINISHED',
+    tip: 'Markdown: # Space',
   },
   {
-    name: 'ol',
-    value: 'ordered-list',
-    status: 'UNFINISHED',
+    name: 'H2',
+    value: 'header-two',
+    status: 'FINISHED',
+    tip: 'Markdown: ## Space',
   },
   {
-    name: 'ul',
-    value: 'unordered-list',
-    status: 'UNFINISHED',
+    name: 'H3',
+    value: 'header-three',
+    status: 'FINISHED',
+    tip: 'Markdown: ### Space',
   },
   {
-    name: 'blockquote',
+    name: 'H4',
+    value: 'header-four',
+    status: 'FINISHED',
+    tip: 'Markdown: #### Space',
+  },
+  {
+    name: 'H5',
+    value: 'header-five',
+    status: 'FINISHED',
+    tip: 'Markdown: ##### Space',
+  },
+  {
+    name: 'H6',
+    value: 'header-six',
+    status: 'FINISHED',
+    tip: 'Markdown: ###### Space',
+  },
+  {
+    name: 'OL',
+    value: 'ordered-list-item',
+    status: 'FINISHED',
+    tip: 'Markdown: 1. Space',
+  },
+  {
+    name: 'UL',
+    value: 'unordered-list-item',
+    status: 'FINISHED',
+    tip: 'Markdown: - Space',
+  },
+  {
+    name: 'Blockquote',
     value: 'blockquote',
-    status: 'UNFINISHED',
+    status: 'FINISHED',
+    tip: 'Markdown: > Space',
   },
   {
-    name: 'font color',
+    name: 'Font color',
     value: 'color',
     status: 'UNFINISHED',
   },
   {
-    name: 'emoji',
+    name: 'Emoji',
     value: 'emoji',
     status: 'UNFINISHED',
   },
   {
-    name: 'bold',
+    name: 'Bold',
     value: 'BOLD',
     status: 'UNFINISHED',
+    tip: 'Markdown: **Bold**',
   },
   {
-    name: 'italic',
+    name: 'Italic',
     value: 'ITALIC',
     status: 'UNFINISHED',
+    tip: 'Markdown: *Italic*',
   },
   {
-    name: 'underline',
+    name: 'Underline',
     value: 'UNDERLINE',
     status: 'UNFINISHED',
+    tip: 'Markdown: ~Underline~',
   },
   {
-    name: 'align left',
+    name: 'Align left',
     value: 'flex-start',
     status: 'UNFINISHED',
   },
   {
-    name: 'align center',
+    name: 'Align center',
     value: 'center',
     status: 'UNFINISHED',
   },
   {
-    name: 'align right',
+    name: 'Align right',
     value: 'flex-end',
     status: 'UNFINISHED',
   },
   {
-    name: 'mentions',
+    name: 'Mentions',
     value: 'mention',
     status: 'UNFINISHED',
   },
   {
-    name: 'link',
+    name: 'Link',
     value: 'link',
     status: 'UNFINISHED',
   },
   {
-    name: 'image',
+    name: 'Image',
     value: 'image',
     status: 'UNFINISHED',
   },
   {
-    name: 'custom card',
+    name: 'Custom card',
     value: 'custom',
     status: 'UNFINISHED',
   },
@@ -91,13 +129,13 @@ const tags = [
 const Features: React.FC = () => {
   return (
     <div className="features-container">
-      {tags.map(({ name, value, status }) => (
-        <div className="tag" key={value}>
-          {name}
+      {tags.map(({ name, value, status, tip }) => (
+        <div className={`tag ${status === 'FINISHED' && 'active'}`} key={value}>
+          <Tooltip content={tip}>{name}</Tooltip>
         </div>
       ))}
     </div>
   );
 };
 
-export default Features;
+export default memo(Features);

@@ -1,7 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { Editor, EditorState } from 'draft-js';
+import type { DraftHandleValue } from 'draft-js';
+import { Editor, EditorState, RichUtils, Modifier } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import Features from './components/Features';
+import GithubIcon from './components/Icons/Github';
+import { checkCharacterForState, checkReturnForState } from './utils';
 import './App.css';
 
 const App: React.FC = () => {
@@ -13,31 +16,64 @@ const App: React.FC = () => {
   const handleClick = () => {
     editorRef.current?.focus();
   };
+  const handleBeforeInput = (chars: string, editorState: EditorState, eventTimeStamp: number): DraftHandleValue => {
+    const selection = editorState.getSelection();
+    const key = selection.getStartKey();
+    let newEditorState = editorState;
+    const text = editorState.getCurrentContent().getBlockForKey(key).getText();
+    const position = selection.getAnchorOffset();
+    const line = [text.slice(0, position), chars, text.slice(position)].join('');
+    newEditorState = checkCharacterForState(editorState, line, setEditorState);
+    if (editorState !== newEditorState) {
+      setEditorState(newEditorState);
+      return 'handled';
+    }
+    return 'not-handled';
+  };
+  const handleReturn = (e: any, editorState: EditorState): DraftHandleValue => {
+    const newEditorState = checkReturnForState(editorState, e);
+    if (editorState !== newEditorState) {
+      setEditorState(newEditorState);
+      return 'handled';
+    }
+    return 'not-handled';
+  };
+  const handleTab = (e: any) => {
+    const selection = editorState.getSelection();
+    const key = selection.getStartKey();
+    const contentState = editorState.getCurrentContent();
+    const type = contentState.getBlockForKey(key).getType();
+    if (type === 'unordered-list-item' || type === 'ordered-list-item') {
+      setEditorState(RichUtils.onTab(e as any, editorState, 4));
+      e.preventDefault();
+      return;
+    }
+    const newContentState = Modifier.insertText(contentState, selection, '  ', editorState.getCurrentInlineStyle());
+    setEditorState(EditorState.push(editorState, newContentState, 'insert-fragment'));
+    e.preventDefault();
+  };
+
   return (
     <div className="container">
       <div className="github">
-        <svg
-          height="24"
-          aria-hidden="true"
-          viewBox="0 0 16 16"
-          version="1.1"
-          width="24"
-          data-view-component="true"
-          className="octicon octicon-mark-github"
-        >
-          <path
-            fillRule="evenodd"
-            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
-          ></path>
-        </svg>
+        <GithubIcon />
         <a href="https://github.com/zhangyanling77/amazing-editor" target="_blank" rel="noreferrer">
           amazing-editor
         </a>
       </div>
+      <h2>Feature List:</h2>
       <Features />
       <h1>Draft.js Editor</h1>
       <div className="draft-editor" onClick={handleClick}>
-        <Editor editorState={editorState} onChange={handleChange} ref={editorRef} placeholder="Please input..." />
+        <Editor
+          editorState={editorState}
+          onChange={handleChange}
+          ref={editorRef}
+          placeholder="Please input..."
+          handleBeforeInput={handleBeforeInput}
+          handleReturn={handleReturn}
+          onTab={handleTab}
+        />
       </div>
     </div>
   );

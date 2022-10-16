@@ -7,8 +7,9 @@ import { checkCharacterForState, checkReturnForState } from './utils';
 interface IAmazingEditorProps {
   className?: string;
   readOnly?: boolean;
+  placeholder?: string;
 }
-const AmazingEditor: React.FC<IAmazingEditorProps> = ({ className, readOnly }) => {
+const AmazingEditor: React.FC<IAmazingEditorProps> = ({ className, readOnly, placeholder = 'Please input...' }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const editorRef = useRef<Editor>(null);
   const handleChange = (newState: EditorState) => {
@@ -70,11 +71,12 @@ const AmazingEditor: React.FC<IAmazingEditorProps> = ({ className, readOnly }) =
         editorState={editorState}
         onChange={handleChange}
         ref={editorRef}
-        placeholder="Please input..."
+        placeholder={placeholder}
         readOnly={readOnly}
         handleBeforeInput={handleBeforeInput}
         handleReturn={handleReturn}
         onTab={handleTab}
+        spellCheck
       />
     </div>
   );

@@ -7,11 +7,10 @@
   bottom: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 10px;
-  filter: drop-shadow(0px 2px 6px rgba(15, 38, 73, 0.15));
+  background: #fff;
+  border-radius: 6px;
   font-size: 12px;
-  color: #fff;
+  color: #000;
   padding: 8px 12px;
   white-space: nowrap;
   transition: all 0.3s;

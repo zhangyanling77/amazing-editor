@@ -3,7 +3,6 @@ import type { DraftHandleValue } from 'draft-js';
 import { Editor, EditorState, RichUtils, Modifier } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { checkCharacterForState, checkReturnForState } from './utils';
-import './App.css';
 
 interface IAmazingEditorProps {
   className?: string;
@@ -46,7 +45,7 @@ const AmazingEditor: React.FC<IAmazingEditorProps> = ({ className, readOnly }) =
     const contentState = editorState.getCurrentContent();
     const type = contentState.getBlockForKey(key).getType();
     if (type === 'unordered-list-item' || type === 'ordered-list-item') {
-      setEditorState(RichUtils.onTab(e as any, editorState, 4));
+      setEditorState(RichUtils.onTab(e as any, editorState, 2));
       e.preventDefault();
       return;
     }

@@ -65,6 +65,29 @@ const AmazingEditor: React.FC<IAmazingEditorProps> = ({ className, readOnly, pla
     return className;
   }, [editorState]);
 
+  const handleKeyCommand = (command: string, editorState: EditorState, eventTimeStamp: number): DraftHandleValue => {
+    let newState;
+    switch (command) {
+      case 'backspace':
+      case 'backspace-word':
+      case 'backspace-to-start-of-line':
+        newState = RichUtils.onBackspace(editorState);
+        break;
+      case 'delete':
+      case 'delete-word':
+      case 'delete-to-end-of-block':
+        newState = RichUtils.onDelete(editorState);
+        break;
+      default:
+        return 'not-handled';
+    }
+    if (newState !== null) {
+      setEditorState(newState);
+      return 'handled';
+    }
+    return 'not-handled';
+  };
+
   return (
     <div className={classNames} onClick={handleClick}>
       <Editor
@@ -75,6 +98,7 @@ const AmazingEditor: React.FC<IAmazingEditorProps> = ({ className, readOnly, pla
         readOnly={readOnly}
         handleBeforeInput={handleBeforeInput}
         handleReturn={handleReturn}
+        handleKeyCommand={handleKeyCommand}
         onTab={handleTab}
         spellCheck
       />

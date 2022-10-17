@@ -64,19 +64,19 @@ const tags = [
   {
     name: 'Bold',
     value: 'BOLD',
-    status: 'UNFINISHED',
+    status: 'FINISHED',
     tip: 'Markdown: **Bold**',
   },
   {
     name: 'Italic',
     value: 'ITALIC',
-    status: 'UNFINISHED',
+    status: 'FINISHED',
     tip: 'Markdown: *Italic*',
   },
   {
     name: 'Underline',
     value: 'UNDERLINE',
-    status: 'UNFINISHED',
+    status: 'FINISHED',
     tip: 'Markdown: ~Underline~',
   },
   {

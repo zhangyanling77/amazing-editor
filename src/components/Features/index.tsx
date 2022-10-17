@@ -62,16 +62,6 @@ const tags = [
     tip: 'Markdown: > Space',
   },
   {
-    name: 'Font color',
-    value: 'color',
-    status: 'UNFINISHED',
-  },
-  {
-    name: 'Emoji',
-    value: 'emoji',
-    status: 'UNFINISHED',
-  },
-  {
     name: 'Bold',
     value: 'BOLD',
     status: 'UNFINISHED',
@@ -88,6 +78,16 @@ const tags = [
     value: 'UNDERLINE',
     status: 'UNFINISHED',
     tip: 'Markdown: ~Underline~',
+  },
+  {
+    name: 'Font color',
+    value: 'color',
+    status: 'UNFINISHED',
+  },
+  {
+    name: 'Emoji',
+    value: 'emoji',
+    status: 'UNFINISHED',
   },
   {
     name: 'Align left',

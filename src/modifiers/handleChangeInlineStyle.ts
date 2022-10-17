@@ -1,11 +1,7 @@
 import { EditorState, SelectionState, Modifier } from 'draft-js';
 import type { DraftInlineStyleType } from 'draft-js';
 
-const handleChangeInlineStyle = (
-  editorState: EditorState,
-  matchArr: any,
-  style: DraftInlineStyleType
-) => {
+const handleChangeInlineStyle = (editorState: EditorState, matchArr: any, style: DraftInlineStyleType) => {
   const currentContent = editorState.getCurrentContent();
   const selection = editorState.getSelection();
   const key = selection.getStartKey();
@@ -18,21 +14,9 @@ const handleChangeInlineStyle = (
     anchorOffset: index + matchArr[0].indexOf(matchArr[1]),
     focusOffset: index + matchArr[0].length,
   });
-  const newContentState = Modifier.replaceText(
-    currentContent,
-    wordSelection,
-    matchArr[2],
-    newStyle
-  );
-  const newEditorState = EditorState.push(
-    editorState,
-    newContentState,
-    'change-inline-style'
-  );
-  return EditorState.forceSelection(
-    newEditorState,
-    newContentState.getSelectionAfter()
-  );
+  const newContentState = Modifier.replaceText(currentContent, wordSelection, matchArr[2], newStyle);
+  const newEditorState = EditorState.push(editorState, newContentState, 'change-inline-style');
+  return EditorState.forceSelection(newEditorState, newContentState.getSelectionAfter());
 };
 
 export default handleChangeInlineStyle;

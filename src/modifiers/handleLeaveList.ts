@@ -1,5 +1,5 @@
 import type { EditorState } from 'draft-js';
-import { RichUtils } from 'draft-js';
+import { RichUtils } from 'draft-js-fix-ime';
 
 const handleLeaveList = (editorState: EditorState) => {
   const contentState = editorState.getCurrentContent();

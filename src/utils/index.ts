@@ -1,14 +1,14 @@
-import { EditorState } from 'draft-js';
+import { EditorState } from 'draft-js-fix-ime';
 import handleBlockType from '../modifiers/handleBlockType';
 import handleLeaveList from '../modifiers/handleLeaveList';
 import handleInsertEmptyBlock from '../modifiers/handleInsertEmptyBlock';
 import handleInlineStyle from '../modifiers/handleInlineStyle';
 
 export const checkCharacterForState = (
-  editorState: EditorState,
+  editorState: typeof EditorState,
   line: string,
-  setEditorState?: (newState: EditorState) => void,
-): EditorState => {
+  setEditorState?: (newState: typeof EditorState) => void,
+): typeof EditorState => {
   let newEditorState = handleBlockType(editorState, line);
   if (editorState === newEditorState) {
     newEditorState = handleInlineStyle(editorState, line);
@@ -16,7 +16,7 @@ export const checkCharacterForState = (
   return newEditorState;
 };
 
-export const checkReturnForState = (editorState: EditorState, ev: any): EditorState => {
+export const checkReturnForState = (editorState: typeof EditorState, ev: any): typeof EditorState => {
   let newEditorState = editorState;
   const contentState = editorState.getCurrentContent();
   const selection = editorState.getSelection();

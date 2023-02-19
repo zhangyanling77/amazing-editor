@@ -1,13 +1,17 @@
 import { List } from 'immutable';
-import { ContentBlock, EditorState, BlockMapBuilder, genKey, ContentState, SelectionState } from 'draft-js';
+import type { ContentState, SelectionState } from 'draft-js';
+import { EditorState, BlockMapBuilder, genKey, ContentBlock } from 'draft-js-fix-ime';
+
+type IContentBlock = typeof ContentBlock;
+type IEditorState = typeof EditorState;
 
 const insertBlockAfterSelection = (
   contentState: ContentState,
   selectionState: SelectionState,
-  newBlock: ContentBlock,
+  newBlock: IContentBlock,
 ): ContentState => {
   const targetKey = selectionState.getStartKey();
-  const array: ContentBlock[] = [];
+  const array: IContentBlock[] = [];
   contentState.getBlockMap().forEach((block, blockKey) => {
     array.push(block!);
     if (blockKey !== targetKey) return;
@@ -26,7 +30,7 @@ const insertBlockAfterSelection = (
   }) as ContentState;
 };
 
-const handleInsertEmptyBlock = (editorState: EditorState): EditorState => {
+const handleInsertEmptyBlock = (editorState: IEditorState): IEditorState => {
   const contentState = editorState.getCurrentContent();
   const selection = editorState.getSelection();
   const newLineBlock = new ContentBlock({

@@ -1,8 +1,11 @@
 import React, { useState, useRef, useMemo } from 'react';
 import type { DraftHandleValue } from 'draft-js';
-import { Editor, EditorState, RichUtils, Modifier } from 'draft-js';
-import 'draft-js/dist/Draft.css';
+import { Editor, EditorState, RichUtils, Modifier } from 'draft-js-fix-ime';
+import 'draft-js-fix-ime/dist/Draft.css';
 import { checkCharacterForState, checkReturnForState } from './utils';
+
+type IEditorState = typeof EditorState;
+type IEditor = typeof Editor;
 
 interface IAmazingEditorProps {
   className?: string;
@@ -11,14 +14,14 @@ interface IAmazingEditorProps {
 }
 const AmazingEditor: React.FC<IAmazingEditorProps> = ({ className, readOnly, placeholder = 'Please input...' }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const editorRef = useRef<Editor>(null);
-  const handleChange = (newState: EditorState) => {
+  const editorRef = useRef<IEditor>(null);
+  const handleChange = (newState: IEditorState) => {
     setEditorState(newState);
   };
   const handleClick = () => {
     editorRef.current?.focus();
   };
-  const handleBeforeInput = (chars: string, editorState: EditorState, eventTimeStamp: number): DraftHandleValue => {
+  const handleBeforeInput = (chars: string, editorState: IEditorState, eventTimeStamp: number): DraftHandleValue => {
     const selection = editorState.getSelection();
     const key = selection.getStartKey();
     let newEditorState = editorState;
@@ -32,7 +35,7 @@ const AmazingEditor: React.FC<IAmazingEditorProps> = ({ className, readOnly, pla
     }
     return 'not-handled';
   };
-  const handleReturn = (e: any, editorState: EditorState): DraftHandleValue => {
+  const handleReturn = (e: any, editorState: IEditorState): DraftHandleValue => {
     const newEditorState = checkReturnForState(editorState, e);
     if (editorState !== newEditorState) {
       setEditorState(newEditorState);
@@ -65,7 +68,7 @@ const AmazingEditor: React.FC<IAmazingEditorProps> = ({ className, readOnly, pla
     return className;
   }, [editorState]);
 
-  const handleKeyCommand = (command: string, editorState: EditorState, eventTimeStamp: number): DraftHandleValue => {
+  const handleKeyCommand = (command: string, editorState: IEditorState, eventTimeStamp: number): DraftHandleValue => {
     let newState;
     switch (command) {
       case 'backspace':

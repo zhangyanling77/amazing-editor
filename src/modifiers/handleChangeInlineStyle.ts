@@ -1,7 +1,9 @@
-import { EditorState, SelectionState, Modifier } from 'draft-js';
 import type { DraftInlineStyleType } from 'draft-js';
+import { EditorState, SelectionState, Modifier } from 'draft-js-fix-ime';
 
-const handleChangeInlineStyle = (editorState: EditorState, matchArr: any, style: DraftInlineStyleType) => {
+type IEditorState = typeof EditorState;
+
+const handleChangeInlineStyle = (editorState: IEditorState, matchArr: any, style: DraftInlineStyleType) => {
   const currentContent = editorState.getCurrentContent();
   const selection = editorState.getSelection();
   const key = selection.getStartKey();

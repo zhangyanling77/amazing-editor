@@ -1,6 +1,8 @@
-import { EditorState } from 'draft-js';
+import { EditorState } from 'draft-js-fix-ime';
 
-const handleChangeBlockType = (editorState: EditorState, type: string, text = '', blockMetadata = {}) => {
+type IEditorState = typeof EditorState;
+
+const handleChangeBlockType = (editorState: IEditorState, type: string, text = '', blockMetadata = {}) => {
   const contentState = editorState.getCurrentContent();
   const selection = editorState.getSelection();
   const key = selection.getStartKey();

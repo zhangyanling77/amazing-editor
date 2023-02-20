@@ -83,26 +83,31 @@ const tags = [
     name: 'Font color',
     value: 'color',
     status: 'UNFINISHED',
+    tip: 'Color',
   },
   {
     name: 'Emoji',
     value: 'emoji',
     status: 'UNFINISHED',
+    tip: 'Emoji',
   },
   {
     name: 'Align left',
     value: 'flex-start',
     status: 'UNFINISHED',
+    tip: 'Align left',
   },
   {
     name: 'Align center',
     value: 'center',
     status: 'UNFINISHED',
+    tip: 'Align center',
   },
   {
     name: 'Align right',
     value: 'flex-end',
     status: 'UNFINISHED',
+    tip: 'Align right',
   },
   {
     name: 'Mentions',

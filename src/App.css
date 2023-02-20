@@ -86,7 +86,3 @@
 .DraftEditor-root h6 {
   font-size: 18px;
 }
-
-.hide-placeholder .public-DraftEditorPlaceholder-root {
-  display: none;
-}

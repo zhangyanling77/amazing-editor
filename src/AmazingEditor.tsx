@@ -49,7 +49,7 @@ const AmazingEditor: React.FC<IAmazingEditorProps> = ({ className, readOnly, pla
     const contentState = editorState.getCurrentContent();
     const type = contentState.getBlockForKey(key).getType();
     if (type === 'unordered-list-item' || type === 'ordered-list-item') {
-      setEditorState(RichUtils.onTab(e as any, editorState, 2));
+      setEditorState(RichUtils.onTab(e as any, editorState, 4));
       e.preventDefault();
       return;
     }
@@ -58,15 +58,15 @@ const AmazingEditor: React.FC<IAmazingEditorProps> = ({ className, readOnly, pla
     e.preventDefault();
   };
 
-  const classNames = useMemo(() => {
-    const contentState = editorState.getCurrentContent();
-    if (!contentState.hasText()) {
-      if (contentState.getBlockMap().first().getType() !== 'unstyled') {
-        className += ' hide-placeholder';
-      }
-    }
-    return className;
-  }, [editorState]);
+  // const classNames = useMemo(() => {
+  //   const contentState = editorState.getCurrentContent();
+  //   if (!contentState.hasText()) {
+  //     if (contentState.getBlockMap().first().getType() !== 'unstyled') {
+  //       className += ' hide-placeholder';
+  //     }
+  //   }
+  //   return className;
+  // }, [editorState]);
 
   const handleKeyCommand = (command: string, editorState: IEditorState, eventTimeStamp: number): DraftHandleValue => {
     let newState;
@@ -92,7 +92,7 @@ const AmazingEditor: React.FC<IAmazingEditorProps> = ({ className, readOnly, pla
   };
 
   return (
-    <div className={classNames} onClick={handleClick}>
+    <div className={className} onClick={handleClick}>
       <Editor
         editorState={editorState}
         onChange={handleChange}
